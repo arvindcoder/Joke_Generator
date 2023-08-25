@@ -1,19 +1,22 @@
-const jokeContainer = document.getElementById('joke');
-const btn = document.getElementById('btn')
-const url = 'https://v2.jokeapi.dev/joke/Any?blacklistFlags=nsfw,religious,political,racist,sexist,explicit&type=single';
-const getJoke = ()=>{
-    jokeContainer.classList.remove("fade")
-    fetch(url)
-    .then(res=>{
-        console.log(res);
-        return res.json()
+const jokeContainer = document.getElementById("joke");
+const btn = document.getElementById("btn");
+const loader = document.querySelector(".ring");
+const url =
+  "https://v2.jokeapi.dev/joke/Any?blacklistFlags=nsfw,religious,political,racist,sexist,explicit&type=single";
+const getJoke = () => {
+  jokeContainer.style.display = "none";
+  loader.style.display = "block";
+  fetch(url)
+    .then((res) => {
+      console.log(res);
+      return res.json();
     })
-    .then(item=>{
-        jokeContainer.classList.add("fade");
-        jokeContainer.textContent = `${item.joke}`;  
+    .then((item) => {
+      jokeContainer.style.display = "block";
+      loader.style.display = "none";
+      jokeContainer.textContent = `${item.joke}`;
     })
-    .catch(error=>console.log(error.message))
-
-}
+    .catch((error) => console.log(error.message));
+};
 getJoke();
-btn.addEventListener('click',getJoke)
+btn.addEventListener("click", getJoke);
